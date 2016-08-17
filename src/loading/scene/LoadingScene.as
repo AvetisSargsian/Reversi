@@ -1,0 +1,75 @@
+package loading.scene
+{
+	import flash.display.BitmapData;
+	import flash.display.Shape;
+	
+	import mvc.view.Scene;
+	
+	import starling.core.Starling;
+	import starling.display.Image;
+	import starling.display.Quad;
+	import starling.text.TextField;
+	import starling.text.TextFieldAutoSize;
+	import starling.textures.Texture;
+	import starling.utils.Color;
+	
+	public class LoadingScene extends Scene
+	{
+		public static const PROGRESS_BAR_NAME:String = "progressBar";
+		
+		public function LoadingScene()
+		{
+			super();
+			this.onAddedToStage = onAdded;
+		}
+		
+		private function onAdded():void
+		{	
+			this.onAddedToStage = null;
+			
+			var reversiTxt:TextField = new TextField(150,75,"REVERSI","Verdana",45,Color.YELLOW);
+			reversiTxt.x = Constants.STAGE_WIDTH/2;
+			reversiTxt.y = Constants.STAGE_HEIGHT/3;
+			reversiTxt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
+			reversiTxt.alignPivot();
+			addChild(reversiTxt);
+			
+			var loadingTxt:TextField = new TextField(150,75,"Loading...");
+			loadingTxt.color = 0xffffff;
+			loadingTxt.fontSize = 20;
+			loadingTxt.y = Constants.STAGE_HEIGHT/2;
+			loadingTxt.x = Constants.STAGE_WIDTH/2 - loadingTxt.width/2;
+			addChild(loadingTxt);
+			
+			var width:Number = Constants.STAGE_WIDTH * 0.66,
+				height:Number = 35,
+				scale:Number = Starling.contentScaleFactor,
+				padding:Number = height * 0.175,
+				cornerRadius:Number = padding * scale * 2;
+			
+			var bgShape:Shape = new Shape();
+			bgShape.graphics.beginFill(0x0, 0.6);
+			bgShape.graphics.drawRoundRect(0, 0, width*scale, height*scale, cornerRadius, cornerRadius);
+			bgShape.graphics.endFill();
+			
+			var bgBitmapData:BitmapData = new BitmapData(width*scale, height*scale, true, 0x0);
+			bgBitmapData.draw(bgShape);
+			var bgTexture:Texture = Texture.fromBitmapData(bgBitmapData, false, false, scale);
+			
+			var mBackground:Image = new Image(bgTexture);
+			mBackground.x = Constants.STAGE_WIDTH/2 - mBackground.width/2;
+			mBackground.y = Constants.STAGE_HEIGHT/1.5
+			addChild(mBackground);
+			
+			// create progress bar quad			
+			var mBar:Quad = new Quad(width - 2*padding, height - 2 * padding, 0xffffff);
+			mBar.setVertexColor(2, 0xffbe00);
+			mBar.setVertexColor(3, 0xffbe00);
+			mBar.x = mBackground.x + padding;
+			mBar.y = mBackground.y + padding;
+			mBar.scaleX = 0;
+			mBar.name = PROGRESS_BAR_NAME;
+			addChild(mBar);
+		}
+	}
+}
