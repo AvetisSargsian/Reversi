@@ -13,6 +13,8 @@ package game.model
 		public static const NEW_GAME:String = "NEW_GAME";
 		
 		private static var _instance:GameModel;
+		private const _player1Stone:int = CellModel.WHITE_STONE;
+		private const _player2Stone:int= CellModel.BLACK_STONE;
 		
 		private var _isGameOver:Boolean;
 		private var _isOpponentComputer:Boolean = false;
@@ -22,8 +24,6 @@ package game.model
 		private var _cellSize:uint = 57;
 		private var _player1Score:int;
 		private var _player2Score:int;
-		private var _player1Stone:int = CellModel.WHITE_STONE;
-		private var _player2Stone:int= CellModel.BLACK_STONE;
 		private var _nextMove:int = _player1Stone;
 		private var fieldSize:int = Constants.FIELD_SIZE;
 		private var fieldCells:Vector.<Vector.<CellModel>>;
@@ -133,15 +133,15 @@ package game.model
 				
 		public function nextPlayerColor():uint
 		{
-			return _nextMove == CellModel.WHITE_STONE ? _stone1Color : _stone2Color;
+			return _nextMove == player1Stone ? _stone1Color : _stone2Color;
 		}
 		
 		public function swapTurn():void
 		{
-			if(_nextMove == CellModel.WHITE_STONE)
-				_nextMove = CellModel.BLACK_STONE;
+			if(_nextMove == _player1Stone)
+				_nextMove = _player2Stone;
 			else 
-				_nextMove = CellModel.WHITE_STONE;
+				_nextMove = _player1Stone;
 			invokeCallBacks(SWAP_PLAYER);
 		}
 		
@@ -150,6 +150,7 @@ package game.model
 			var tempColor:uint = _stone1Color;
 			_stone1Color = _stone2Color;
 			_stone1Color = tempColor;
+			swapTurn();
 		}
 		
 		public function reciveGameData(data:Object):void
@@ -188,7 +189,7 @@ package game.model
 			fieldCells[3][3].state = CellModel.WHITE_STONE;
 			fieldCells[4][4].state = CellModel.WHITE_STONE;
 			
-			_nextMove = _player1Stone;
+//			_nextMove = _player1Stone;
 			
 			_player1Score = 2;
 			_player2Score = 2;

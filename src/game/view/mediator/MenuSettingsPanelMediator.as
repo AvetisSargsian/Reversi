@@ -45,13 +45,13 @@ package game.view.mediator
 			var btn:Button = event.target as Button; 
 			if (btn == btn1 && btn1.alpha == 0.7)
 			{
-				gameModel.swapStoneColors();//invoke methods of model directly from here not very correct :-)
+				GameController.instance.swapStoneColors();
 				btn1.alpha = 1;
 				btn2.alpha = 0.7;
 			}
 			else if (btn == btn2 && btn2.alpha == 0.7)
 			{
-				gameModel.swapStoneColors();//invoke methods of model directly from here not very correct :-)
+				GameController.instance.swapStoneColors();
 				btn1.alpha = 0.7;
 				btn2.alpha = 1;	
 			}

@@ -221,6 +221,12 @@ package game.controller
 				}
 			}
 		}
+		
+		public function swapStoneColors():void
+		{
+			gameModel.swapStoneColors();
+			compOpponent.stone = gameModel.nextMove == gameModel.player1Stone ? gameModel.player2Stone : gameModel.player1Stone;
+		}
 	}
 }
 class PrivateClass

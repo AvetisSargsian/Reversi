@@ -28,9 +28,15 @@ package game.model
 		{
 			gameModel = GameModel.instance;
 			validMoves = new Vector.<CellModel>();
-			_stone = gameModel.nextMove; 
+			_stone = gameModel.player2Stone;
+//			 
 		}
 		
+		public function set stone(value:int):void
+		{
+			_stone = value;
+		}
+
 		public function get stone():int
 		{
 			return _stone;
