@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="sprites.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="button"	x="0"	y="0"	width="200"	height="99" frameX="-0" frameY="-0" frameWidth="200" frameHeight="99"/>
+	<SubTexture name="button_small"	x="0"	y="100"	width="100"	height="50" frameX="-0" frameY="-0" frameWidth="100" frameHeight="50"/>
+	<SubTexture name="cell_bg"	x="80"	y="191"	width="54"	height="54" frameX="-0" frameY="-0" frameWidth="54" frameHeight="54"/>
+	<SubTexture name="empty_stone"	x="101"	y="100"	width="46"	height="44" frameX="-0" frameY="-0" frameWidth="46" frameHeight="44"/>
+	<SubTexture name="open-score_small"	x="0"	y="191"	width="79"	height="19" frameX="-0" frameY="-0" frameWidth="80" frameHeight="19"/>
+	<SubTexture name="player1"	x="0"	y="151"	width="99"	height="19" frameX="-0" frameY="-0" frameWidth="101" frameHeight="21"/>
+	<SubTexture name="player2"	x="0"	y="171"	width="98"	height="19" frameX="-1" frameY="-0" frameWidth="101" frameHeight="19"/>
+	<SubTexture name="stone"	x="0"	y="211"	width="46"	height="44" frameX="-0" frameY="-0" frameWidth="46" frameHeight="44"/>
+</TextureAtlas>
