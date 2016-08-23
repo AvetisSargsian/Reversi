@@ -2,10 +2,10 @@ package game.scene.mediator
 {
 	import game.controller.GameController;
 	import game.scene.GameScene;
-	import game.view.mediator.ButtonsPanelMediator;
-	import game.view.mediator.GameOverViewMediator;
-	import game.view.mediator.PlayFieldViewMediator;
-	import game.view.mediator.ScorePanelMediator;
+	import game.view.mediators.ButtonsPanelMediator;
+	import game.view.mediators.GameOverViewMediator;
+	import game.view.mediators.PlayFieldViewMediator;
+	import game.view.mediators.ScorePanelMediator;
 	
 	import mvc.mediator.IMediator;
 	import mvc.mediator.SceneMediator;

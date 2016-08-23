@@ -1,6 +1,6 @@
 package menu.mediator
 {
-	import game.view.mediator.MenuSettingsPanelMediator;
+	import game.view.mediators.MenuSettingsPanelMediator;
 	
 	import menu.MainMenuScene;
 	

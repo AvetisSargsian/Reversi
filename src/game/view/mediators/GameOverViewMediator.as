@@ -1,4 +1,4 @@
-package game.view.mediator
+package game.view.mediators
 {
 	import game.model.GameModel;
 	import game.view.GameOverView;

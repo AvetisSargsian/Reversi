@@ -1,11 +1,13 @@
-package game.view.mediator
+package game.view.mediators
 {
 	import game.controller.GameController;
 	import game.model.CellModel;
 	import game.model.GameModel;
 	import game.view.CellView;
 	import game.view.PlayFieldView;
+	import game.view.statefactory.CellStateFactory;
 	
+	import mvc.factory.IFactory;
 	import mvc.mediator.AbstractMediator;
 	import mvc.view.AbstractView;
 	
@@ -19,6 +21,8 @@ package game.view.mediator
 	{
 		private var gameModel:GameModel;
 		
+		private var stateFactory:IFactory;
+		
 		public function PlayFieldViewMediator(thisView:AbstractView=null)
 		{
 			super(thisView);
@@ -27,6 +31,8 @@ package game.view.mediator
 			
 			gameModel = GameModel.instance;
 			gameModel.registerCallBack(GameModel.UPDATE_FIELD,updateCells);
+			
+			stateFactory = new CellStateFactory();
 		}
 		
 		private function onAddedToStage():void
@@ -84,39 +90,7 @@ package game.view.mediator
 		
 		private function setCellState(cellView:CellView, cellModel:CellModel):void
 		{
-//			ToDo:implement with pattern State;get state from fabric
-			var stone:Image;
-			switch(cellModel.state)
-			{
-				case CellModel.EMPTY:
-				{
-					cellView.getChildByName(CellView.STONE).visible = false;
-					cellView.getChildByName(CellView.POSIBLE_MOVE).visible = false;
-					break;
-				}
-				case CellModel.POSSIBLE_MOVE:
-				{
-					cellView.getChildByName(CellView.STONE).visible = false;
-					cellView.getChildByName(CellView.POSIBLE_MOVE).visible = true;
-					break;
-				}
-				case CellModel.WHITE_STONE:
-				{	
-					stone = cellView.getChildByName(CellView.STONE) as Image;
-					stone.color = gameModel.stone1Color;
-					stone.visible = true;
-					cellView.getChildByName(CellView.POSIBLE_MOVE).visible = false;
-					break;
-				}
-				case CellModel.BLACK_STONE:
-				{
-					stone = cellView.getChildByName(CellView.STONE) as Image;
-					stone.color = gameModel.stone2Color;
-					stone.visible = true;
-					cellView.getChildByName(CellView.POSIBLE_MOVE).visible = false;
-					break;
-				}
-			}
+			stateFactory.produce(cellView, cellModel.state);
 		}
 		
 		private function onTouch(event:TouchEvent):void
@@ -133,6 +107,8 @@ package game.view.mediator
 			nativeVIew.addEventListener(TouchEvent.TOUCH,onTouch);
 			gameModel.removeCallBack(GameModel.UPDATE_FIELD,updateCells);
 			gameModel = null;
+			stateFactory.dispose();
+			stateFactory = null;
 			super.dispose();
 		}
 		
