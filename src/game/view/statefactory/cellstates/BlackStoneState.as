@@ -1,4 +1,4 @@
-package game.view.cellstates
+package game.view.statefactory.cellstates
 {
 	import game.model.GameModel;
 	import game.view.CellView;

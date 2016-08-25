@@ -1,11 +1,11 @@
 package game.view.statefactory
 {
 	import game.model.CellModel;
-	import game.view.cellstates.BlackStoneState;
-	import game.view.cellstates.CellEmpyState;
-	import game.view.cellstates.CellPosibleMoveState;
-	import game.view.cellstates.ICellState;
-	import game.view.cellstates.WhiteStoneState;
+	import game.view.statefactory.cellstates.BlackStoneState;
+	import game.view.statefactory.cellstates.CellEmpyState;
+	import game.view.statefactory.cellstates.CellPosibleMoveState;
+	import game.view.statefactory.cellstates.ICellState;
+	import game.view.statefactory.cellstates.WhiteStoneState;
 	
 	
 	public class CellStateFactory extends AbstractMethodFactory

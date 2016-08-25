@@ -6,7 +6,7 @@ package game.view.statefactory
 	
 	import mvc.view.AbstractView;
 	import mvc.factory.IFactory;
-	import game.view.cellstates.ICellState;
+	import game.view.statefactory.cellstates.ICellState;
 	
 	public class AbstractMethodFactory implements IFactory
 	{	

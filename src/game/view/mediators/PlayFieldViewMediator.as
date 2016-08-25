@@ -35,6 +35,21 @@ package game.view.mediators
 			stateFactory = new CellStateFactory();
 		}
 		
+		override public function dispose():void
+		{
+			nativeVIew.addEventListener(TouchEvent.TOUCH,onTouch);
+			gameModel.removeCallBack(GameModel.UPDATE_FIELD,updateCells);
+			gameModel = null;
+			stateFactory.dispose();
+			stateFactory = null;
+			super.dispose();
+		}
+		
+		override protected function setNativeVIew():AbstractView
+		{
+			return new PlayFieldView();
+		}
+		
 		private function onAddedToStage():void
 		{
 			nativeVIew.removeEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
@@ -101,21 +116,5 @@ package game.view.mediators
 				GameController.instance.handleFieldTouch(touch);
 			}
 		}
-		
-		override public function dispose():void
-		{
-			nativeVIew.addEventListener(TouchEvent.TOUCH,onTouch);
-			gameModel.removeCallBack(GameModel.UPDATE_FIELD,updateCells);
-			gameModel = null;
-			stateFactory.dispose();
-			stateFactory = null;
-			super.dispose();
-		}
-		
-		override protected function setNativeVIew():AbstractView
-		{
-			return new PlayFieldView();
-		}
-		
 	}
 }

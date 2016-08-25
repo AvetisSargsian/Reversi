@@ -3,13 +3,15 @@ package loading.scene.mediator
 	import loading.model.AssetsModel;
 	import loading.scene.LoadingScene;
 	
-	import mvc.view.AbstractView;
 	import mvc.mediator.SceneMediator;
+	import mvc.view.AbstractView;
 	
 	import starling.display.DisplayObject;
 	import starling.events.Event;
 	import starling.text.TextField;
 	import starling.text.TextFieldAutoSize;
+	import starling.text.TextFormat;
+	import starling.utils.Align;
 	import starling.utils.Color;
 	
 	public class LoadingSceneMediator extends SceneMediator
@@ -55,11 +57,12 @@ package loading.scene.mediator
 		
 		private function onNoAssetsToLoad():void
 		{			
-			var txtField:TextField = new TextField(145,70,"NO ASSETS TO LOAD","Verdana",45,Color.RED);
+			var txtFormat:TextFormat = new TextFormat("Verdana",45,Color.RED,Align.RIGHT);
+			var txtField:TextField = new TextField(145,70,"NO ASSETS TO LOAD");
+			txtField.format = txtFormat;
 			txtField.name = "txtField";
 			txtField.x = Constants.STAGE_WIDTH/2;
 			txtField.y = pBar.y - txtField.height/2;
-			txtField.hAlign   = starling.utils.HAlign.RIGHT;
 			txtField.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			txtField.alignPivot();
 			nativeVIew.addChild(txtField);

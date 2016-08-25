@@ -5,6 +5,7 @@ package game.view
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.text.TextField;
+	import starling.text.TextFormat;
 	import starling.utils.Color;
 	
 	public class GameOverView extends AbstractView
@@ -35,7 +36,9 @@ package game.view
 			img.name = PLAYER_STONE;
 			addChild(img);
 			
-			var text:TextField = new TextField(250, 100,"WIN","Verdana",30);
+			var txtFormat:TextFormat = new TextFormat("Verdana",30);
+			var text:TextField = new TextField(250, 100,"WIN");
+			text.format = txtFormat; 
 			text.x = img.x
 			text.y = img.y + 60;
 			text.name = WIN_TXT;

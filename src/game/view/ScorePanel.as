@@ -5,6 +5,7 @@ package game.view
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.text.TextField;
+	import starling.text.TextFormat;
 	import starling.utils.Color;
 	
 	public class ScorePanel extends AbstractView
@@ -61,13 +62,16 @@ package game.view
 			score.scale = 0.9;
 			addChild(score);
 			
-			var scoreTxt:TextField = new TextField(50,50,"0","Verdana",20,Color.BLACK);
+			var txtFormat:TextFormat = new TextFormat("Verdana",20,Color.BLACK);
+			var scoreTxt:TextField = new TextField(50,50,"0")
+			scoreTxt.format = txtFormat; 
 			scoreTxt.x = 115;
 			scoreTxt.y = score.y +10;
 			scoreTxt.name = PLAYER1_SCORE;
 			addChild(scoreTxt);
 			
-			scoreTxt= new TextField(50,50,"0","Verdana",20,Color.BLACK);
+			scoreTxt = new TextField(50,50,"0");
+			scoreTxt.format = txtFormat;
 			scoreTxt.x = 300;
 			scoreTxt.y = score.y + 10;
 			scoreTxt.name = PLAYER2_SCORE;

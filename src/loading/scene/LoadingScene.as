@@ -10,6 +10,7 @@ package loading.scene
 	import starling.display.Quad;
 	import starling.text.TextField;
 	import starling.text.TextFieldAutoSize;
+	import starling.text.TextFormat;
 	import starling.textures.Texture;
 	import starling.utils.Color;
 	
@@ -27,16 +28,18 @@ package loading.scene
 		{	
 			this.onAddedToStage = null;
 			
-			var reversiTxt:TextField = new TextField(150,75,"REVERSI","Verdana",45,Color.YELLOW);
+			var tFormat:TextFormat = new TextFormat("Verdana",45,Color.YELLOW);
+			var reversiTxt:TextField = new TextField(150,75,"REVERSI");
+			reversiTxt.format = tFormat; 
 			reversiTxt.x = Constants.STAGE_WIDTH/2;
 			reversiTxt.y = Constants.STAGE_HEIGHT/3;
 			reversiTxt.autoSize = TextFieldAutoSize.BOTH_DIRECTIONS;
 			reversiTxt.alignPivot();
 			addChild(reversiTxt);
 			
+			tFormat = new TextFormat("Verdana",20,0xffffff);
 			var loadingTxt:TextField = new TextField(150,75,"Loading...");
-			loadingTxt.color = 0xffffff;
-			loadingTxt.fontSize = 20;
+			loadingTxt.format = tFormat;
 			loadingTxt.y = Constants.STAGE_HEIGHT/2;
 			loadingTxt.x = Constants.STAGE_WIDTH/2 - loadingTxt.width/2;
 			addChild(loadingTxt);
