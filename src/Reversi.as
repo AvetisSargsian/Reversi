@@ -4,6 +4,8 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.display3D.Context3DProfile;
+	import flash.display3D.Context3DRenderMode;
 	import flash.events.Event;
 	import flash.events.NativeWindowBoundsEvent;
 	import flash.geom.Rectangle;
@@ -12,6 +14,8 @@ package
 	
 	import starling.core.Starling;
 	import starling.events.Event;
+	import starling.utils.RectangleUtil;
+	import starling.utils.ScaleMode;
 
 	[SWF(backgroundColor="#000",frameRate="60")]
 	public class Reversi extends Sprite
@@ -41,10 +45,20 @@ package
 		private function init(event:flash.events.Event = null):void
 		{
 			removeEventListener(flash.events.Event.ADDED_TO_STAGE, this.init);
+
+//			var screenSize:Rectangle = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
+//			var stageSize:Rectangle = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
+//			var viewPort:Rectangle = RectangleUtil.fit(stageSize, screenSize, ScaleMode.SHOW_ALL);
+			var viewPort:Rectangle = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 			
-			var viewPort:Rectangle = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
-			
-			myStarling = new Starling(StarlingRootDisplayObject, stage, viewPort);
+			myStarling = new Starling(StarlingRootDisplayObject, stage, viewPort,
+							null, Context3DRenderMode.AUTO, Context3DProfile.BASELINE);
+			myStarling.stage.color = 0x126598;
+			myStarling.stage.stageWidth  = Constants.STAGE_WIDTH;
+			myStarling.stage.stageHeight = Constants.STAGE_HEIGHT;
+ 
+			myStarling.supportHighResolutions = true;
+			myStarling.skipUnchangedFrames = true;
 			viewPort = null;
 			myStarling.showStats = true;
 			myStarling.antiAliasing = 1;
