@@ -5,19 +5,26 @@ package mvc.mediator
 	import mvc.view.AbstractView;
 	import mvc.view.Scene;
 	
+	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	
 	public class SceneMediator extends AbstractMediator
 	{
-		public function SceneMediator()
+		public function SceneMediator(thisView:AbstractView = null)
 		{
-			super();
-			nativeVIew.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
+			super(thisView);
+			nativeVIew.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
+		}
+		
+		private function onAddedToStage():void
+		{
+			nativeVIew.removeEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
+			nativeVIew.stage.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 		}
 		
 		override public function dispose():void
 		{
-			nativeVIew.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
+			nativeVIew.stage.removeEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 			super.dispose();
 		}
 		

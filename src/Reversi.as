@@ -14,8 +14,6 @@ package
 	
 	import starling.core.Starling;
 	import starling.events.Event;
-	import starling.utils.RectangleUtil;
-	import starling.utils.ScaleMode;
 
 	[SWF(backgroundColor="#000",frameRate="60")]
 	public class Reversi extends Sprite
@@ -46,14 +44,10 @@ package
 		{
 			removeEventListener(flash.events.Event.ADDED_TO_STAGE, this.init);
 
-//			var screenSize:Rectangle = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
-//			var stageSize:Rectangle = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
-//			var viewPort:Rectangle = RectangleUtil.fit(stageSize, screenSize, ScaleMode.SHOW_ALL);
 			var viewPort:Rectangle = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 			
 			myStarling = new Starling(StarlingRootDisplayObject, stage, viewPort,
 							null, Context3DRenderMode.AUTO, Context3DProfile.BASELINE);
-			myStarling.stage.color = 0x126598;
 			myStarling.stage.stageWidth  = Constants.STAGE_WIDTH;
 			myStarling.stage.stageHeight = Constants.STAGE_HEIGHT;
  
@@ -62,13 +56,7 @@ package
 			viewPort = null;
 			myStarling.showStats = true;
 			myStarling.antiAliasing = 1;
-			
-			myStarling.addEventListener(starling.events.Event.ROOT_CREATED, 
-				function(event:Object, app:StarlingRootDisplayObject):void
-				{	
-					myStarling.removeEventListener(starling.events.Event.ROOT_CREATED, arguments.callee);
-					myStarling.start();
-				});
+			myStarling.start();
 		}
 	}
 }

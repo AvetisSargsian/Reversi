@@ -189,7 +189,7 @@ package game.model
 			fieldCells[3][3].state = CellModel.WHITE_STONE;
 			fieldCells[4][4].state = CellModel.WHITE_STONE;
 			
-//			_nextMove = _player1Stone;
+			_nextMove = _player1Stone;
 			
 			_player1Score = 2;
 			_player2Score = 2;
