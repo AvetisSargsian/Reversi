@@ -29,6 +29,11 @@ package game.model
 		{
 			return _directions;
 		}
+		
+		public function set directions(vec:Vector.<CellModel>):void 
+		{
+			_directions = vec;
+		}
 
 		public function haveOppoziteStones(cell:CellModel):Boolean
 		{
@@ -85,6 +90,19 @@ package game.model
 			{
 				_directions.length = 0;
 			}
+		}
+		
+		public function copy():CellModel
+		{
+			var cellCopy:CellModel = new CellModel(_state, _row,_column);
+			if(_directions.length > 0)
+			{
+				for (var i:int = 0; i < _directions.length; ++i) 
+				{
+					cellCopy.addDirection(_directions[i]);
+				}
+			}
+			return cellCopy;
 		}
 		
 		override public function update():void{}

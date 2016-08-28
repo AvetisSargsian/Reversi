@@ -54,7 +54,6 @@ package game.view.mediators
 		{
 			nativeVIew.removeEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
 
-//			ToDO:implement with builder pattern ....
 			var fieldSize:int = Constants.FIELD_SIZE,
 				cellSize:int = gameModel.cellSize,
 				cell:CellView,
@@ -92,15 +91,12 @@ package game.view.mediators
 			var cell:CellView,
 				length:int = Constants.FIELD_SIZE;
 			
-			for (var i:int = 0; i < length; ++i) 
+			Constants.iterateThruCells(function(i,j):void
 			{
-				for (var j:int = 0; j < length; ++j) 
-				{
-					cell = nativeVIew.getChildByName(i.toString() + j.toString()) as CellView;
-					if (cell)
-						setCellState(cell,gameModel.getCell(i,j));
-				}	
-			}
+				cell = nativeVIew.getChildByName(i.toString() + j.toString()) as CellView;
+				if (cell)
+					setCellState(cell,gameModel.getCell(i,j));
+			});
 		}
 		
 		private function setCellState(cellView:CellView, cellModel:CellModel):void

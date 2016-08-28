@@ -16,5 +16,16 @@ package
 		public static const FIELD_SIZE:int = 8;
 		public static var CECLL_SIZE:Number = 56.7;
 		
+		public static function iterateThruCells(doSomeThings:Function):void
+		{
+			for (var i:int = 0; i < FIELD_SIZE; ++i)
+			{ 
+				for (var j:int = 0; j < FIELD_SIZE; ++j)
+				{
+					doSomeThings(i,j);
+				}
+			}
+		}
+		
 	}
 }

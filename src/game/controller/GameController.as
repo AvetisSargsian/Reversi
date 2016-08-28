@@ -1,7 +1,6 @@
 package game.controller
 {
 	import game.model.CellModel;
-	import game.model.ComputerOpponent;
 	import game.model.GameModel;
 	import game.view.CellView;
 	
@@ -39,7 +38,7 @@ package game.controller
 		public function restartGame():void
 		{
 			gameModel.initializeGame()
-			setPosibleMovesMarcks();
+			setPosibleMovesMarcks(gameModel);
 			gameModel.restartGame();
 			
 			computerMove();
@@ -64,30 +63,82 @@ package game.controller
 					col:int = Math.ceil(cellView.x/gameModel.cellSize);
 				var cellM:CellModel = gameModel.getCell(row,col);
 				if (cellM && cellM.havePosibleMove())
-				{
 					makeMove(cellM);
+			}
+		}
+		
+		public function swapStoneColors():void
+		{
+			gameModel.swapStoneColors();
+			compOpponent.stone = gameModel.nextMove == gameModel.player1Stone ? gameModel.player2Stone : gameModel.player1Stone;
+		}
+		
+		internal function swapStonesOnField(cellM:CellModel,gm:GameModel):void
+		{
+			var dir:Vector.<CellModel> = cellM.directions,
+				cell:CellModel;
+			while((cell = dir.pop())!= null)
+			{
+				var startRow:int = cell.row,
+					startCol:int = cell.column,
+					vertLength:int = cellM.row - startRow,
+					gorizLength:int = cellM.column - startCol,
+					stepVert:int = vertLength != 0 ? vertLength/Math.abs(vertLength) : 0,
+					stepGoriz:int = gorizLength !=0 ? gorizLength/Math.abs(gorizLength) : 0,
+					nextCell:CellModel
+				
+				while(true)
+				{
+					startRow += stepVert; startCol += stepGoriz;
+					nextCell = gm.getCell(startRow, startCol);
+					if(nextCell) nextCell.state = gm.nextMove;
+					if(nextCell.row == cellM.row && nextCell.column == cellM.column) break; 
 				}
 			}
 		}
 		
-		public function handleComputerMove(cellM:CellModel):void
+		internal function handleComputerMove(cellM:CellModel):void
 		{
 			if (cellM)
-			{
 				makeMove(cellM);
-			}
 			isTouchEnabled = true;
+		}
+		
+		internal function setPosibleMovesMarcks(gm:GameModel):void
+		{
+			gm.clearPosibleMoveMarcks();
+			Constants.iterateThruCells(function(row,col):void
+			{
+				var cell:CellModel = gm.getCell(row,col); 
+				if(cell.state == gm.nextMove)
+					checkForValidMoves(cell,gm);
+			});
+		}
+		
+		private function countScores():void
+		{
+			var player1Score:int = 0,
+				player2Score:int = 0;
+			
+			Constants.iterateThruCells(function(i,j):void 
+			{
+				if (gameModel.getCell(i,j).state == CellModel.WHITE_STONE)
+					player1Score++;
+				else if(gameModel.getCell(i,j).state == CellModel.BLACK_STONE)
+					player2Score++;
+			});
+			gameModel.setScores(player1Score,player2Score);
 		}
 		
 		private function makeMove(cellM:CellModel):void
 		{
-			swapStonesOnField(cellM);
+			swapStonesOnField(cellM,gameModel);
 			countScores();
 			var count:int = 2;
 			do{
 				count--;
 				gameModel.swapTurn();
-				setPosibleMovesMarcks();
+				setPosibleMovesMarcks(gameModel);
 				if(count < 0)
 				{
 					isTouchEnabled = true;
@@ -110,18 +161,7 @@ package game.controller
 			}	
 		}
 		
-		private function setPosibleMovesMarcks():void
-		{
-			gameModel.clearPosibleMoveMarcks();
-			iterateThruCells(function(row,col):void
-			{
-				var cell:CellModel = gameModel.getCell(row,col); 
-				if(cell.state == gameModel.nextMove)
-					checkForValidMoves(cell);
-			});
-		}
-		
-		private function checkForValidMoves(cell:CellModel):void
+		private function checkForValidMoves(cell:CellModel,gm:GameModel):void
 		{
 			var up:int = -1,
 				down:int = 1,
@@ -129,28 +169,28 @@ package game.controller
 				right:int = 1,
 				noMove:int = 0;
 			
-			direction(cell,down,noMove);
-			direction(cell,down,right);
-			direction(cell,down,left);
-			direction(cell,noMove,left);
-			direction(cell,noMove,right);
-			direction(cell,up,left);
-			direction(cell,up,noMove);
-			direction(cell,up,right);
+			direction(cell,gm,down,noMove);
+			direction(cell,gm,down,right);
+			direction(cell,gm,down,left);
+			direction(cell,gm,noMove,left);
+			direction(cell,gm,noMove,right);
+			direction(cell,gm,up,left);
+			direction(cell,gm,up,noMove);
+			direction(cell,gm,up,right);
 		}
 		
-		private function direction(cell:CellModel,verticalStep:int,gorizontalStep:int):void
+		private function direction(cell:CellModel,gm:GameModel,verticalStep:int,gorizontalStep:int):void
 		{			
 			var	haveOppozite:Boolean,
-			nextCell:CellModel,
-			startPosRow:int = cell.row + verticalStep, 
+				nextCell:CellModel,
+				startPosRow:int = cell.row + verticalStep, 
 				startPosCol:int = cell.column + gorizontalStep,
 				startPosRowHolder:int = startPosRow,
 				startPosColHolder:int = startPosCol;
 			
 			while(true)
 			{
-				nextCell = gameModel.getCell(startPosRow,startPosCol)
+				nextCell = gm.getCell(startPosRow,startPosCol)
 				if (!nextCell)return;
 				
 				haveOppozite = cell.haveOppoziteStones(nextCell);
@@ -164,68 +204,11 @@ package game.controller
 				{
 					nextCell.state = CellModel.POSSIBLE_MOVE;
 					nextCell.addDirection(cell);
-					gameModel.posibleMoveCount++;
+					gm.posibleMoveCount++;
 					return; 
 				}
 				return;
 			}
-		}
-		
-		private function countScores():void
-		{
-			var player1Score:int = 0,
-				player2Score:int = 0;
-			
-			iterateThruCells(function(i,j):void 
-			{
-				if (gameModel.getCell(i,j).state == CellModel.WHITE_STONE)
-					player1Score++;
-				else if(gameModel.getCell(i,j).state == CellModel.BLACK_STONE)
-					player2Score++;
-			});
-			gameModel.setScores(player1Score,player2Score);
-		}
-		
-		private function swapStonesOnField(cellM:CellModel):void
-		{
-			var dir:Vector.<CellModel> = cellM.directions,
-				cell:CellModel;
-			while((cell = dir.pop())!= null)
-			{
-				var startRow:int = cell.row,
-					startCol:int = cell.column,
-					vertLength:int = cellM.row - startRow,
-					gorizLength:int = cellM.column - startCol,
-					stepVert:int = vertLength != 0 ? vertLength/Math.abs(vertLength) : 0,
-					stepGoriz:int = gorizLength !=0 ? gorizLength/Math.abs(gorizLength) : 0,
-					nextCell:CellModel
-				
-				while(true)
-				{
-					startRow += stepVert; startCol += stepGoriz;
-					nextCell = gameModel.getCell(startRow, startCol);
-					if(nextCell) nextCell.state = gameModel.nextMove;
-					if(nextCell==cellM) break; 
-				}
-			}
-		}
-		
-		private function iterateThruCells(doSomeThings:Function):void
-		{
-			var fieldSize:int = Constants.FIELD_SIZE;
-			for (var i:int = 0; i < fieldSize; ++i)
-			{ 
-				for (var j:int = 0; j < fieldSize; ++j)
-				{
-					doSomeThings(i,j);
-				}
-			}
-		}
-		
-		public function swapStoneColors():void
-		{
-			gameModel.swapStoneColors();
-			compOpponent.stone = gameModel.nextMove == gameModel.player1Stone ? gameModel.player2Stone : gameModel.player1Stone;
 		}
 	}
 }

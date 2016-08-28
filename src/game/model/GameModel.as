@@ -29,16 +29,6 @@ package game.model
 		private var fieldCells:Vector.<Vector.<CellModel>>;
 		private var _posibleMoveCount:int = 0;
 
-		public function get player2Stone():int
-		{
-			return _player2Stone;
-		}
-
-		public function get player1Stone():int
-		{
-			return _player1Stone;
-		}
-
 		public static function get instance( ):GameModel
 		{
 			if (_instance == null)
@@ -46,10 +36,30 @@ package game.model
 			return _instance;
 		}
 		
-		public function GameModel(pvt:PrivateClass)
+		public function GameModel(pvt:PrivateClass, fieldVector:Vector.<Vector.<CellModel>> = null)
 		{
 			super();
-			createField();
+			if (!fieldVector)
+				createField();
+			else
+				fieldCells = fieldVector; 
+		}
+		
+		public function createCopy( fieldVector:Vector.<Vector.<CellModel>> ):GameModel
+		{
+			var gm:GameModel = new GameModel (new PrivateClass(), fieldVector);
+			gm.nextMove = _nextMove; 
+			return gm;  		
+		}
+		
+		public function get player2Stone():int
+		{
+			return _player2Stone;
+		}
+		
+		public function get player1Stone():int
+		{
+			return _player1Stone;
 		}
 		
 		public function get isGameOver():Boolean
@@ -100,6 +110,11 @@ package game.model
 		public function get nextMove():int
 		{
 			return _nextMove;
+		}
+		
+		public function set nextMove(value:int):void
+		{
+			_nextMove = value;
 		}
 		
 		public function get posibleMoveCount():int
@@ -198,7 +213,7 @@ package game.model
 		
 		public function clearPosibleMoveMarcks():void
 		{
-			iterateThruCells(function(i,j):void
+			Constants.iterateThruCells(function(i,j):void
 			{
 				if (fieldCells[i][j].havePosibleMove())
 					fieldCells[i][j].state = CellModel.EMPTY;
@@ -208,7 +223,7 @@ package game.model
 		
 		public override function dispose():void
 		{	
-			iterateThruCells(function(row,col):void
+			Constants.iterateThruCells(function(row,col):void
 			{
 				fieldCells[row][col].dispose();
 			});
@@ -218,23 +233,26 @@ package game.model
 			super.dispose();
 		}
 		
+		public function createFieldCopy():Vector.<Vector.<CellModel>>
+		{
+			var fieldvec:Vector.<Vector.<CellModel>> = new Vector.<Vector.<CellModel>>();
+			for (var row:int = 0; row < fieldSize; ++row)
+			{
+				fieldvec[row] = new Vector.<CellModel>();
+				for (var col:int = 0; col < fieldSize; ++col)
+				{
+					fieldvec[row].push(getCell(row,col).copy());
+				}
+			}
+			return fieldvec;
+		}
+		
 		private function emptifyField():void
 		{
-			iterateThruCells(function(i,j):void
+			Constants.iterateThruCells(function(i,j):void
 			{
 				fieldCells[i][j].state = CellModel.EMPTY;
 			});
-		}
-			
-		private function iterateThruCells(doSomeThings:Function):void
-		{
-			for (var i:int = 0; i < fieldSize; ++i)
-			{ 
-				for (var j:int = 0; j < fieldSize; ++j)
-				{
-					doSomeThings(i,j);
-				}
-			}
 		}
 		
 		private function createField():void
