@@ -8,5 +8,6 @@ package game.view.statefactory.cellstates
 	{
 		function applyToView(cellV:CellView):void;
 		function setCallBack(func:Function):void;
+		function invokeCallBack():void
 	}
 }

@@ -12,13 +12,18 @@ package game.view.statefactory.cellstates
 		
 		public function applyToView(cellV:CellView):void
 		{
-			if (callBack != null)
-				callBack();
+			invokeCallBack();
 		}
 		
 		public function setCallBack(func:Function):void
 		{
 			callBack = func;
+		}
+		
+		public function invokeCallBack():void
+		{
+			if (callBack != null)
+			callBack();
 		}
 		
 		public function dispose():void

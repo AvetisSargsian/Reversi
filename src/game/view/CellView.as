@@ -27,8 +27,9 @@ package game.view
 			var stone:Image = new Image(assetManager.getTexture("stone"));
 			stone.name = STONE
 			addChild(stone);
-			stone.x = (bg.width - stone.width)/2;
-			stone.y = (bg.height - stone.height)/2;
+			stone.x = bg.width /2;
+			stone.y = bg.height/2;
+			stone.alignPivot();
 			
 			var posibleMove:Image = new Image(assetManager.getTexture("empty_stone"));
 			posibleMove.name = POSIBLE_MOVE;

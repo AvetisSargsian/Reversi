@@ -2,6 +2,7 @@ package game.view.statefactory.cellstates
 {
 	import game.model.GameModel;
 	import game.view.CellView;
+	import game.view.animator.Animator;
 	
 	import starling.display.Image;
 
@@ -14,12 +15,18 @@ package game.view.statefactory.cellstates
 		
 		override public function applyToView(cellV:CellView):void
 		{
-			var stone:Image = cellV.getChildByName(CellView.STONE) as Image;
-			stone.color = GameModel.instance.stone1Color;
-			stone.visible = true;
+			var stone:Image = cellV.getChildByName(CellView.STONE) as Image,
+				time:Number = stone.color == GameModel.instance.stone1Color ? 0 : 0.25;
 			cellV.getChildByName(CellView.POSIBLE_MOVE).visible = false;
-			super.applyToView(cellV);
+			
+			Animator.flip(stone,time,onFlip,invokeCallBack);
+			
+			function onFlip():void
+			{
+				stone.color = GameModel.instance.stone1Color;
+				stone.visible = true;	
+			}
+			
 		}
-		
 	}
 }
