@@ -18,11 +18,14 @@ package game.view.statefactory
 		public function dispose():void {}
 		
 		
-		public final function produce(cellV:AbstractView, type:int):void
+		public final function produce(cellV:AbstractView, data:Object):void
 		{
-			var cellState:ICellState = createProduct(type);
+			var cellState:ICellState = createProduct(data.type);
 			if (cellState)
+			{
+				cellState.setCallBack(data.callBack);
 				cellState.applyToView(cellV as CellView);
+			}
 		}
 		
 		protected function createProduct(type:int):ICellState

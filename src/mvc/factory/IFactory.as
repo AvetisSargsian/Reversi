@@ -6,6 +6,6 @@ package mvc.factory
 
 	public interface IFactory extends IDisposeble
 	{
-		function produce(cellV:AbstractView, type:int):void
+		function produce(cellV:AbstractView, data:Object):void
 	}
 }

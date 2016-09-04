@@ -29,10 +29,12 @@ package game.view
 			addChild(stone);
 			stone.x = bg.width /2;
 			stone.y = bg.height/2;
+			stone.visible = false;
 			stone.alignPivot();
 			
 			var posibleMove:Image = new Image(assetManager.getTexture("empty_stone"));
 			posibleMove.name = POSIBLE_MOVE;
+			posibleMove.visible = false;
 			addChild(posibleMove);
 			posibleMove.x = (bg.width - posibleMove.width)/2;
 			posibleMove.y = (bg.height - posibleMove.height)/2;

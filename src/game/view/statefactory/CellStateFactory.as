@@ -60,6 +60,5 @@ package game.view.statefactory
 			blackStoneState.dispose();
 			blackStoneState = null;
 		}
-		
 	}
 }

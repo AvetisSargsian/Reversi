@@ -2,7 +2,7 @@ package game.view.statefactory.cellstates
 {
 	import game.model.GameModel;
 	import game.view.CellView;
-	import game.view.animator.Animator;
+	import animator.Animator;
 	
 	import starling.display.Image;
 

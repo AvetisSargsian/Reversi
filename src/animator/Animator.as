@@ -1,6 +1,5 @@
-package game.view.animator
+package animator
 {
-	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 
@@ -12,14 +11,6 @@ package game.view.animator
 		
 		static public function flip(view:DisplayObject,time:Number,onFlipAction:Function = null,onComplete:Function = null):void
 		{
-//			var tween:Tween = new Tween(view,time);
-//			tween.animate("scaleX",0);
-//			tween.repeatCount = 2;
-//			tween.reverse = true;
-//			tween.onRepeat = onHalfFlipAction;
-//			tween.onComplete = onComplete;
-//			Starling.juggler.add(tween);
-			
 			var obj:Object = {
 				scaleX:0,
 				repeatCount:2,

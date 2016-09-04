@@ -19,9 +19,10 @@ package game.view.mediators
 	
 	public class PlayFieldViewMediator extends AbstractMediator
 	{
+		private var cellCount:int = Constants.FIELD_SIZE * Constants.FIELD_SIZE;
 		private var gameModel:GameModel;
-		
 		private var stateFactory:IFactory;
+		private var touchEnabled:Boolean = true;
 		
 		public function PlayFieldViewMediator(thisView:AbstractView=null)
 		{
@@ -77,8 +78,6 @@ package game.view.mediators
 					bg.setVertexColor(0, gameModel.cellColor);
 					bg.setVertexColor(2, gameModel.cellColor);
 					bg.setVertexColor(3, gameModel.cellColor);
-					
-					setCellState(cell,gameModel.getCell(i,j));
 					_x += cellSize;
 				}
 				_x = 0;
@@ -90,7 +89,7 @@ package game.view.mediators
 		{
 			var cell:CellView,
 				length:int = Constants.FIELD_SIZE;
-			
+			touchEnabled = false;
 			Constants.iterateThruCells(function(i,j):void
 			{
 				cell = nativeVIew.getChildByName(i.toString() + j.toString()) as CellView;
@@ -101,13 +100,23 @@ package game.view.mediators
 		
 		private function setCellState(cellView:CellView, cellModel:CellModel):void
 		{
-			stateFactory.produce(cellView, cellModel.state);
+			stateFactory.produce(cellView, {"type":cellModel.state, "callBack":touchEnebler});
+		}
+		
+		private function touchEnebler():void
+		{
+			-- cellCount ;
+			if (cellCount <= 0)
+			{	
+				touchEnabled = true;
+				cellCount = Constants.FIELD_SIZE * Constants.FIELD_SIZE;
+			}
 		}
 		
 		private function onTouch(event:TouchEvent):void
 		{
 			var touch:Touch = event.getTouch(nativeVIew,TouchPhase.BEGAN);
-			if(touch)
+			if(touch && touchEnabled)
 			{
 				GameController.instance.handleFieldTouch(touch);
 			}
