@@ -16,15 +16,23 @@ package game.view.statefactory.cellstates
 		override public function applyToView(cellV:CellView):void
 		{
 			var stone:Image = cellV.getChildByName(CellView.STONE) as Image,
-				time:Number = stone.color == GameModel.instance.stone2Color ? 0 : 0.25;
+				time:Number;
+			cellV.getChildByName(CellView.POSIBLE_MOVE).visible = false;
 			
-			Animator.flip(stone,time,onFlip,invokeCallBack);
-			
-			function onFlip():void
+			if (stone.visible)
 			{
+				time = stone.color == GameModel.instance.stone2Color ? 0 : 0.25;
+				function onFlip():void	{
+					stone.color = GameModel.instance.stone2Color;	
+				}
+				Animator.flip(stone,time,onFlip,invokeCallBack);
+			}else
+			{
+				time = 0.55;
 				stone.color = GameModel.instance.stone2Color;
 				stone.visible = true;
-				cellV.getChildByName(CellView.POSIBLE_MOVE).visible = false;
+				stone.scale = 1.5;
+				Animator.drop(stone,time,invokeCallBack);
 			}
 		}
 	}

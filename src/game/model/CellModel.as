@@ -6,8 +6,12 @@ package game.model
 	{
 		public static const EMPTY:int = 123;
 		public static const POSSIBLE_MOVE:int = 124;
-		public static const WHITE_STONE:int = 125;
-		public static const BLACK_STONE:int = 126;
+		
+		public static const WHITE_STONE:int = 126;
+		public static const NEW_WHITE_STONE:int = 125;
+		
+		public static const BLACK_STONE:int = 128;
+		public static const NEW_BLACK_STONE:int = 127;
 		
 		private var _state:int;
 		private var _row:int;
@@ -24,7 +28,7 @@ package game.model
 			
 			_directions = new Vector.<CellModel>();
 		}
-		
+
 		public function get directions():Vector.<CellModel>
 		{
 			return _directions;
@@ -84,7 +88,6 @@ package game.model
 			if (value >= EMPTY && value <= BLACK_STONE)
 			{
 				_state = value;
-				update();
 			}
 			if (_state == EMPTY)
 			{
