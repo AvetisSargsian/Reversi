@@ -1,7 +1,6 @@
 package game.scene.mediator
 {
 	import game.controller.GameController;
-	import game.scene.GameScene;
 	import game.view.mediators.ButtonsPanelMediator;
 	import game.view.mediators.GameOverViewMediator;
 	import game.view.mediators.PlayFieldViewMediator;
@@ -9,7 +8,6 @@ package game.scene.mediator
 	
 	import mvc.mediator.IMediator;
 	import mvc.mediator.SceneMediator;
-	import mvc.view.AbstractView;
 	
 	import navigation.controller.NavigationController;
 	
@@ -43,11 +41,6 @@ package game.scene.mediator
 			gameOverMediator = null;
 			
 			super.dispose();
-		}
-		
-		override protected function setNativeVIew():AbstractView
-		{
-			return new GameScene();
 		}
 		
 		override protected function onKeyboardBACK():void

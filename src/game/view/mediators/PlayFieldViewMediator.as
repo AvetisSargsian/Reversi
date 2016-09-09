@@ -4,7 +4,6 @@ package game.view.mediators
 	import game.model.CellModel;
 	import game.model.GameModel;
 	import game.view.CellView;
-	import game.view.PlayFieldView;
 	import game.view.statefactory.CellStateFactory;
 	
 	import mvc.factory.IFactory;
@@ -44,11 +43,6 @@ package game.view.mediators
 			stateFactory.dispose();
 			stateFactory = null;
 			super.dispose();
-		}
-		
-		override protected function setNativeVIew():AbstractView
-		{
-			return new PlayFieldView();
 		}
 		
 		private function onAddedToStage():void
