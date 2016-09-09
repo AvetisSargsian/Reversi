@@ -23,8 +23,6 @@ package game.view
 		{
 			this.onAddedToStage = null;
 			
-			this.x = (Constants.STAGE_WIDTH - Constants.CECLL_SIZE * Constants.FIELD_SIZE)/2; 
-			
 			var fielsdSide:Number = Constants.FIELD_SIZE * Constants.CECLL_SIZE;
 			var bg:Quad = new Quad(fielsdSide,fielsdSide);
 			bg.color = Color.GRAY;
@@ -44,6 +42,9 @@ package game.view
 			text.name = WIN_TXT;
 			text.alignPivot();
 			addChild(text);
+			
+			this.x = (Constants.STAGE_WIDTH - Constants.CECLL_SIZE * Constants.FIELD_SIZE)/2;
+			this.y = -fielsdSide;
 		}
 	}
 }

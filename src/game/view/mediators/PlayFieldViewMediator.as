@@ -99,7 +99,7 @@ package game.view.mediators
 		
 		private function touchEnebler():void
 		{
-			-- cellCount ;
+			--cellCount;
 			if (cellCount <= 0)
 			{	
 				touchEnabled = true;

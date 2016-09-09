@@ -1,5 +1,7 @@
 package game.view.mediators
 {
+	import animator.Animator;
+	
 	import game.model.GameModel;
 	import game.view.GameOverView;
 	
@@ -43,7 +45,6 @@ package game.view.mediators
 		
 		private function onGameOver():void
 		{
-			nativeVIew.visible = true;
 			if (gameModel.player1Score > gameModel.player2Score)
 			{
 				stone.color = gameModel.stone1Color;
@@ -60,11 +61,12 @@ package game.view.mediators
 				text.text = "Player 2 Win";
 				stone.color = gameModel.stone2Color;
 			}
+			Animator.move(nativeVIew,0.25,nativeVIew.x,0);
 		}
 		
 		private function onNewGame():void
 		{
-			nativeVIew.visible = false;
+			Animator.move(nativeVIew,0.25,nativeVIew.x,-nativeVIew.height);
 		}
 		
 		private function onAddedTostage():void
