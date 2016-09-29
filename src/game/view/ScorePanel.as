@@ -1,6 +1,6 @@
 package game.view
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -8,7 +8,7 @@ package game.view
 	import starling.text.TextFormat;
 	import starling.utils.Color;
 	
-	public class ScorePanel extends AbstractView
+	public class ScorePanel extends BaseView
 	{
 		public static const PLAY_TURN:String = "playTurn";
 		public static const PLAYER1_SCORE:String = "PLAYER1_SCORE";

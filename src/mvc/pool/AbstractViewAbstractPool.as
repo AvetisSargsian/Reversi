@@ -1,29 +1,29 @@
 package mvc.pool
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.events.Event;
 
 	public class AbstractViewAbstractPool
 	{
-		private var poolVec:Vector.<AbstractView>
+		private var poolVec:Vector.<BaseView>
 		
 		public function AbstractViewAbstractPool()
 		{
-			poolVec = new Vector.<AbstractView>();
+			poolVec = new Vector.<BaseView>();
 		}
 		
 		public function fillUp(count:int):void
 		{
 			for (var i:int = 0; i < count; ++i) 
 			{
-				poolVec.push(createView());
+				poolVec[poolVec.length] = createView();
 			}
 		}
 		
-		public function take():AbstractView
+		public function take():BaseView
 		{
-			var view:AbstractView;
+			var view:BaseView;
 			if (poolVec.length > 0)
 			{
 				view = poolVec.pop();
@@ -35,9 +35,9 @@ package mvc.pool
 			return view;
 		}
 		
-		public function put(view:AbstractView):void
+		public function put(view:BaseView):void
 		{
-			poolVec.push(view);
+			poolVec[poolVec.length] = view;
 		}
 		
 		public function flush():void
@@ -55,14 +55,14 @@ package mvc.pool
 			poolVec = null;
 		}
 		
-		protected function createView():AbstractView
+		protected function createView():BaseView
 		{
-			return new AbstractView(); 
+			return new BaseView(); 
 		}
 		
 		private function returnToPool(event:Event):void
 		{
-			var veiw:AbstractView = event.target as AbstractView;
+			var veiw:BaseView = event.target as BaseView;
 			veiw.removeEventListener(Event.REMOVED_FROM_STAGE, returnToPool);
 			put(veiw);
 		}

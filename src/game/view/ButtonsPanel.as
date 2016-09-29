@@ -1,10 +1,10 @@
 package game.view
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Button;
 	
-	public class ButtonsPanel extends AbstractView
+	public class ButtonsPanel extends BaseView
 	{
 		public static const MAIN_MENU:String = "MAIN_MENU";
 		public static const NEW_GAME:String = "NEW_GAME";

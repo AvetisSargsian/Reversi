@@ -60,7 +60,7 @@ package game.model
 		
 		public function addDirection(cell:CellModel):void
 		{
-			_directions.push(cell);
+			_directions[_directions.length] = cell;
 		}
 		
 		public function removeAllDirection():void

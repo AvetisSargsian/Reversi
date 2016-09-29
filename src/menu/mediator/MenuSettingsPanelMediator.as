@@ -1,11 +1,11 @@
-package game.view.mediators
+package menu.mediator
 {
 	import game.controller.GameController;
 	import game.model.GameModel;
-	import game.view.MenuSettingsPanel;
+	import menu.MenuSettingsPanel;
 	
 	import mvc.mediator.AbstractMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Button;
 	import starling.events.Event;
@@ -17,7 +17,7 @@ package game.view.mediators
 		private var btn2:Button;
 		private var btn3:Button;
 		
-		public function MenuSettingsPanelMediator(thisView:AbstractView=null)
+		public function MenuSettingsPanelMediator(thisView:BaseView=null)
 		{
 			super(thisView);
 			nativeVIew.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
@@ -35,7 +35,7 @@ package game.view.mediators
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new MenuSettingsPanel();
 		}

@@ -1,11 +1,11 @@
 package mvc.factory
 {
 	import mvc.disposeble.IDisposeble;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 
 	public interface IFactory extends IDisposeble
 	{
-		function produce(cellV:AbstractView, data:Object):void
+		function produce(cellV:BaseView, data:Object):void
 	}
 }

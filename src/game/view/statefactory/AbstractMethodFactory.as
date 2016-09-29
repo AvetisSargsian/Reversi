@@ -4,7 +4,7 @@ package game.view.statefactory
 	
 	import game.view.CellView;
 	
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	import mvc.factory.IFactory;
 	import game.view.statefactory.cellstates.ICellState;
 	
@@ -18,7 +18,7 @@ package game.view.statefactory
 		public function dispose():void {}
 		
 		
-		public final function produce(cellV:AbstractView, data:Object):void
+		public final function produce(cellV:BaseView, data:Object):void
 		{
 			var cellState:ICellState = createProduct(data.type);
 			if (cellState)

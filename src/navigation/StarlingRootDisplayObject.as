@@ -1,11 +1,11 @@
 package navigation
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import navigation.controller.NavigationController;
 	import navigation.model.NavigationModel;
 	
-	public class StarlingRootDisplayObject extends AbstractView
+	public class StarlingRootDisplayObject extends BaseView
 	{
 		public function StarlingRootDisplayObject()
 		{

@@ -5,7 +5,7 @@ package game.controller
 	import game.view.CellView;
 	
 	import mvc.controller.AbstractController;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.events.Touch;
 	
@@ -56,7 +56,7 @@ package game.controller
 		
 		public function handleFieldTouch(touch:Touch):void
 		{
-			var cellView:AbstractView = touch.target.parent as CellView;
+			var cellView:BaseView = touch.target.parent as CellView;
 			if (cellView && isTouchEnabled)
 			{
 				var row:int = Math.ceil(cellView.y/gameModel.cellSize),
@@ -115,25 +115,25 @@ package game.controller
 			});
 		}
 		
-		private function countScores():void
+		private function countScores(gm:GameModel):void
 		{
 			var player1Score:int = 0,
 				player2Score:int = 0;
 			
 			Constants.iterateThruCells(function(i,j):void 
 			{
-				if (gameModel.getCell(i,j).state == CellModel.WHITE_STONE)
+				if (gm.getCell(i,j).state == CellModel.WHITE_STONE)
 					player1Score++;
-				else if(gameModel.getCell(i,j).state == CellModel.BLACK_STONE)
+				else if(gm.getCell(i,j).state == CellModel.BLACK_STONE)
 					player2Score++;
 			});
-			gameModel.setScores(player1Score,player2Score);
+			gm.setScores(player1Score,player2Score);
 		}
 		
 		private function makeMove(cellM:CellModel):void
 		{
 			swapStonesOnField(cellM,gameModel);
-			countScores();
+			countScores(gameModel);
 			var count:int = 2;
 			do{
 				count--;

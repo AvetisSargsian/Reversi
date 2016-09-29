@@ -1,12 +1,12 @@
 package mvc.mediator
 {
 	import mvc.disposeble.IDisposeble;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 
 	public interface IMediator extends IDisposeble
 	{
-		function get nativeVIew():AbstractView;
-		function get contextView():AbstractView;
-		function addToParent(parent:AbstractView):void
+		function get nativeVIew():BaseView;
+		function get contextView():BaseView;
+		function addToParent(parent:BaseView):void
 	}
 }

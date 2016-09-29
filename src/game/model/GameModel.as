@@ -241,7 +241,7 @@ package game.model
 				fieldvec[row] = new Vector.<CellModel>();
 				for (var col:int = 0; col < fieldSize; ++col)
 				{
-					fieldvec[row].push(getCell(row,col).copy());
+					fieldvec[row][fieldvec[row].length] = getCell(row,col).copy();
 				}
 			}
 			return fieldvec;
@@ -263,7 +263,7 @@ package game.model
 				fieldCells[row] = new Vector.<CellModel>();
 				for (var col:int = 0; col < fieldSize; ++col)
 				{
-					fieldCells[row].push(new CellModel(CellModel.EMPTY,row, col));
+					fieldCells[row][fieldCells[row].length] = new CellModel(CellModel.EMPTY,row, col);
 				}
 			}
 		}

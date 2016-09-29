@@ -124,7 +124,7 @@ package game.controller
 				var cell:CellModel = gameModel.getCell(i,j); 
 				if (cell.havePosibleMove())
 				{
-					validMoves.push(cell);
+					validMoves[validMoves.length] = cell;
 				}
 			});
 			return validMoves;

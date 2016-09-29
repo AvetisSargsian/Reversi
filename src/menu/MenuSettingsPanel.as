@@ -1,6 +1,6 @@
-package game.view
+package menu
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Button;
 	import starling.text.TextField;
@@ -9,7 +9,7 @@ package game.view
 	import starling.utils.Align;
 	import starling.utils.Color;
 	
-	public class MenuSettingsPanel extends AbstractView
+	public class MenuSettingsPanel extends BaseView
 	{
 		public static const P1_COLOR:String = "P1COLOR";
 		public static const P2_COLOR:String = "P2COLOR";

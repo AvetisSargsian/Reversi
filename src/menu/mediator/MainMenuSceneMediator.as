@@ -1,12 +1,11 @@
 package menu.mediator
 {
-	import game.view.mediators.MenuSettingsPanelMediator;
 	
 	import menu.MainMenuScene;
 	
 	import mvc.mediator.IMediator;
 	import mvc.mediator.SceneMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import navigation.controller.NavigationController;
 	
@@ -31,7 +30,7 @@ package menu.mediator
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new MainMenuScene();
 		}

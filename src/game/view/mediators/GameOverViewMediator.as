@@ -6,7 +6,7 @@ package game.view.mediators
 	import game.view.GameOverView;
 	
 	import mvc.mediator.AbstractMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	import starling.events.Event;
@@ -18,7 +18,7 @@ package game.view.mediators
 		private var stone:Image;
 		private var text:TextField;
 		
-		public function GameOverViewMediator(thisView:AbstractView=null)
+		public function GameOverViewMediator(thisView:BaseView=null)
 		{
 			super(thisView);
 			
@@ -38,7 +38,7 @@ package game.view.mediators
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new GameOverView();
 		}

@@ -1,6 +1,6 @@
 package game.view
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	import starling.display.Quad;
@@ -8,7 +8,7 @@ package game.view
 	import starling.text.TextFormat;
 	import starling.utils.Color;
 	
-	public class GameOverView extends AbstractView
+	public class GameOverView extends BaseView
 	{
 		public static const PLAYER_STONE:String = "playTurn";
 		public static const WIN_TXT:String = "WIN_TXT";

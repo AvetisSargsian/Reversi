@@ -20,7 +20,7 @@ package mvc.pool
 			this.classOfProduct = classOfProduct;
 			for (var i:int = 0; i < count; ++i) 
 			{
-				poolVec.push(createProduct(classOfProduct));
+				poolVec[poolVec.length] = createProduct(classOfProduct);
 			}
 		}
 		
@@ -44,7 +44,7 @@ package mvc.pool
 		
 		public function put(product:IContentProduct):void
 		{
-			poolVec.push(product);
+			poolVec[poolVec.length] = product;
 		}
 		
 		public function flush():void

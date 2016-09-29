@@ -19,7 +19,7 @@ package mvc.pool
 				dictPool[classOfNode] = new Vector.<classOfNode>();
 			for (var i:int = 0; i < count; ++i) 
 			{
-				dictPool[classOfNode].puch(new classOfNode());
+				dictPool[classOfNode][dictPool[classOfNode].length] = new classOfNode();
 			}
 		}
 		
@@ -39,7 +39,7 @@ package mvc.pool
 			
 			if (nodeClass in dictPool)
 			{
-				dictPool[nodeClass].push(node);
+				dictPool[nodeClass][dictPool[nodeClass].length] = node;
 			}
 		}
 		

@@ -7,13 +7,13 @@ package mvc.view
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
-	public class AbstractView extends Sprite implements IDisposeble
+	public class BaseView extends Sprite implements IDisposeble
 	{
 		private var _assetManager:AssetsModel;
 		private var _onAddedToStage:Function;
 		private var _onRemoveFromStage:Function;
 		
-		public function AbstractView() 
+		public function BaseView() 
 		{
 			super();
 			
@@ -43,7 +43,7 @@ package mvc.view
 			_assetManager = null;
 			_onRemoveFromStage = null;
 			_onAddedToStage = null;
-			removeChildren(0,-1, true);
+//			removeChildren(0,-1, true);
 			super.dispose();
 		}
 		

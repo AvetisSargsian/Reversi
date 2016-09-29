@@ -1,10 +1,10 @@
 package game.view
 {
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	
-	public class CellView extends AbstractView
+	public class CellView extends BaseView
 	{
 		public static const CELL_BG:String = "celBg";
 		public static const STONE:String = "stone";

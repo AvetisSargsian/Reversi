@@ -2,7 +2,7 @@ package mvc.mediator
 {
 	import flash.ui.Keyboard;
 	
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	import mvc.view.Scene;
 	
 	import starling.events.Event;
@@ -10,7 +10,7 @@ package mvc.mediator
 	
 	public class SceneMediator extends AbstractMediator
 	{
-		public function SceneMediator(thisView:AbstractView = null)
+		public function SceneMediator(thisView:BaseView = null)
 		{
 			super(thisView);
 			nativeVIew.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
@@ -28,7 +28,7 @@ package mvc.mediator
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new Scene();
 		}

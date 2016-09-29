@@ -21,7 +21,7 @@ package loading.model
 		public static const NO_ASSETS:String = "noAssets";
 		
 		private static var _instance:AssetsModel;
-
+		
 		public function get ratio():Number
 		{
 			return _ratio;
@@ -37,11 +37,15 @@ package loading.model
 		}
 		private var _assetsManager:AssetManager;
 		private var _ratio:Number;
+		private var appDir:File;
+		private var _path:String;
 		
 		public function AssetsModel(pvt:PrivateClass)
 		{
 			super();
 			_assetsManager = new AssetManager();
+			appDir = File.applicationDirectory;
+			_path = "";
 		}
 //		========================================================================
 		public static function drawRoundRectTexture(width:int, hight:int, color:uint, round:uint = 15):Texture
@@ -84,9 +88,7 @@ package loading.model
 //		========================================================================
 		public function enqueueAsset(...params):void
 		{
-			var appDir:File = File.applicationDirectory,
-				_path:String = "",
-				ful_path:String;
+			var ful_path:String;
 			for(var i:uint = 0,l:uint = params.length;i<l;i++)
 			{
 				if (params[i] is String)
@@ -94,9 +96,17 @@ package loading.model
 					ful_path = _path + params[i];
 					appDir.resolvePath(_path);
 					_assetsManager.enqueue(appDir.resolvePath(ful_path));
+					continue;
+				}
+				if (params[i] is Array)
+				{
+					for (var j:int = 0,len:int = params[i].length; j<len; ++j) 
+					{
+						enqueueAsset(params[i][j])
+					}
 				}
 			}
-			trace("enqued assets number",_assetsManager.numQueuedAssets);
+			trace("total enqued assets number",_assetsManager.numQueuedAssets);
 		}
 //		========================================================================
 		public function loadAssets():void

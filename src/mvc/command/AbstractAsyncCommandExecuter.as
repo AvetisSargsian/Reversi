@@ -19,7 +19,7 @@ package mvc.command
 		public function add(command:IAsyncCmmand):void
 		{
 			command.addCompleteCallback(executeNext);
-			_commandList.push(command);
+			_commandList[_commandList.length] = command;
 		}
 		
 		public function addList(list:Vector.<IAsyncCmmand>):void

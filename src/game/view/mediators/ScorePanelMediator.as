@@ -4,7 +4,7 @@ package game.view.mediators
 	import game.view.ScorePanel;
 	
 	import mvc.mediator.AbstractMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	import starling.events.Event;
@@ -16,7 +16,7 @@ package game.view.mediators
 		private var p1Score:TextField;
 		private var p2Score:TextField;
 		private var gameModel:GameModel;
-		public function ScorePanelMediator(thisView:AbstractView=null)
+		public function ScorePanelMediator(thisView:BaseView=null)
 		{
 			super(thisView);
 			nativeVIew.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage);
@@ -37,7 +37,7 @@ package game.view.mediators
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new ScorePanel();
 		}

@@ -13,7 +13,6 @@ package
 	import navigation.StarlingRootDisplayObject;
 	
 	import starling.core.Starling;
-	import starling.events.Event;
 
 	[SWF(backgroundColor="#000",frameRate="60")]
 	public class Reversi extends Sprite

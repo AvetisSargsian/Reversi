@@ -4,7 +4,7 @@ package game.view.mediators
 	import game.view.ButtonsPanel;
 	
 	import mvc.mediator.AbstractMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import navigation.controller.NavigationController;
 	
@@ -13,7 +13,7 @@ package game.view.mediators
 	
 	public class ButtonsPanelMediator extends AbstractMediator
 	{	
-		public function ButtonsPanelMediator(thisVeiw:AbstractView = null)
+		public function ButtonsPanelMediator(thisVeiw:BaseView = null)
 		{
 			super(thisVeiw);
 			
@@ -26,7 +26,7 @@ package game.view.mediators
 			super.dispose();
 		}
 		
-		override protected function setNativeVIew():AbstractView
+		override protected function setNativeVIew():BaseView
 		{
 			return new ButtonsPanel();
 		}

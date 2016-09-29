@@ -18,11 +18,15 @@ package navigation.controller
 	{
 		private static var _instance:NavigationController;
 		private var navModel:NavigationModel;
+		private var assetsModel:AssetsModel
 		
 		public function NavigationController(pvt:PrivateClass)
 		{
 			super();
-			navModel = NavigationModel.instance
+			navModel = NavigationModel.instance;
+			assetsModel = AssetsModel.instance;
+			assetsModel.addEventListener(AssetsModel.LOADING_COMPLETE,onLoadingComplete);
+			assetsModel.addEventListener(AssetsModel.LOADING_PRECOMPLETE, onLoadingPREComplete);
 		}
 		
 		public static function get instance( ):NavigationController
@@ -34,11 +38,6 @@ package navigation.controller
 		
 		public function changeScene(sceneDef:String):void
 		{
-			var assetsModel:AssetsModel = AssetsModel.instance;
-				
-				assetsModel.addEventListener(AssetsModel.LOADING_COMPLETE,onLoadingComplete);
-				assetsModel.addEventListener(AssetsModel.LOADING_PRECOMPLETE, onLoadingPREComplete);
-				
 			switch(sceneDef)
 			{
 				case Constants.FIRST_LOAD:
@@ -67,7 +66,16 @@ package navigation.controller
 		override public function dispose():void
 		{
 			navModel = null;
+			assetsModel.removeEventListener(AssetsModel.LOADING_COMPLETE,onLoadingComplete);
+			assetsModel.removeEventListener(AssetsModel.LOADING_PRECOMPLETE, onLoadingPREComplete);
+			assetsModel = null;
 			super.dispose();
+		}
+		
+		private function loadAssets(...loads):void
+		{
+			assetsModel.enqueueAsset(loads);
+			assetsModel.loadAssets();
 		}
 		
 		/**
@@ -75,9 +83,6 @@ package navigation.controller
 		 */		
 		private function onLoadingPREComplete(event:Event = null):void
 		{
-			if (event)
-				event.target.removeEventListener(AssetsModel.LOADING_PRECOMPLETE,onLoadingPREComplete);
-			
 			if(navModel.nextSceneMediator is MainMenuSceneMediator)
 			{
 				GameController.instance.passDtat(AssetsModel.instance.getJSONObject("config"));
@@ -86,10 +91,7 @@ package navigation.controller
 		
 		//TODO:Add change scene animation class after Loading Complete
 		private function onLoadingComplete(event:Event = null):void
-		{
-			if (event)
-				event.target.removeEventListener(AssetsModel.LOADING_COMPLETE,onLoadingComplete);
-			
+		{	
 			navModel.curentSceneMediator  = navModel.nextSceneMediator;
 			navModel.nextSceneMediator = null;
 		}

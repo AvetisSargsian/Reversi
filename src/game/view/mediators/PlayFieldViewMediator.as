@@ -8,7 +8,7 @@ package game.view.mediators
 	
 	import mvc.factory.IFactory;
 	import mvc.mediator.AbstractMediator;
-	import mvc.view.AbstractView;
+	import mvc.view.BaseView;
 	
 	import starling.display.Image;
 	import starling.events.Event;
@@ -23,7 +23,7 @@ package game.view.mediators
 		private var stateFactory:IFactory;
 		private var touchEnabled:Boolean = true;
 		
-		public function PlayFieldViewMediator(thisView:AbstractView=null)
+		public function PlayFieldViewMediator(thisView:BaseView=null)
 		{
 			super(thisView);
 			nativeVIew.addEventListener(Event.ADDED_TO_STAGE,onAddedToStage)

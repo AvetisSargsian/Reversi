@@ -34,7 +34,7 @@ package mvc.model
 			{
 				callBacks[key] = new Vector.<Function>();
 			}
-			callBacks[key].push(callBack);
+			callBacks[key][callBacks[key].length] = callBack;
 		}
 		
 		public final function removeCallBack(key:String,callBack:Function):void
